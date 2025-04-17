@@ -1,0 +1,49 @@
+#video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+#video-grid video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #6c757d;
+    background-color: black;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+}
+
+.btn {
+    min-width: 140px;
+    margin-bottom: 0.5rem;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#user-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#user-list li:last-child {
+    border-bottom: none;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#participant-count {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}

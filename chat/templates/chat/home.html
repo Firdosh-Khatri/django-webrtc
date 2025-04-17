@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Video Chat - Home{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="display-4 mb-4">Welcome to Video Chat</h1>
+            <p class="lead mb-5">Create a new room or join an existing one to start video chatting with friends.</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-5 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Create a New Room</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'create_room' %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="room_name" class="form-label">Room Name (Optional)</label>
+                            <input type="text" class="form-control" id="room_name" name="room_name">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Create Room</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5 mb-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">Join an Existing Room</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'join_room' %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="join_username" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="join_username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="room_id" class="form-label">Room ID</label>
+                            <input type="text" class="form-control" id="room_id" name="room_id" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Join Room</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

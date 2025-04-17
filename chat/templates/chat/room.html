@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Video Room{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Video Chat Room: {{ room_id }}</h1>
+        <span id="participantCount" class="badge bg-info">👥 0 participants</span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Participants</h5>
+                </div>
+                <div class="card-body">
+                    <div id="participantList" class="list-unstyled text-muted small mb-0"></div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Room Info</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Room ID:</strong> <span id="room-id-display">{{ room_id }}</span></p>
+                    <p><strong>Your Name:</strong> <span id="username-display">{{ username }}</span></p>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="copyRoomId()">Copy Room ID</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="video-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-3">
+                <!-- Video elements will be added here dynamically -->
+            </div>
+            
+            <div class="mt-4 d-flex flex-wrap gap-2">
+                <button class="btn btn-outline-primary" onclick="toggleMute()">🎤 Mute/Unmute</button>
+                <button class="btn btn-outline-primary" onclick="toggleVideo()">🎥 Video On/Off</button>
+                <button class="btn btn-outline-danger" onclick="toggleRecording(true)">⏺️ Start Recording</button>
+                <button class="btn btn-outline-secondary" onclick="toggleRecording(false)">⏹️ Stop Recording</button>
+                <button class="btn btn-outline-warning" onclick="leaveRoom()">🚪 Leave</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Pass the room ID and username from Django to JavaScript
+    // These variables are used in webrtc.js to establish the WebSocket connection
+    const roomId = "{{ room_id }}";
+    const username = "{{ username }}";
+    
+    // Function to copy room ID to clipboard
+    function copyRoomId() {
+        const roomId = document.getElementById('room-id-display').textContent;
+        navigator.clipboard.writeText(roomId).then(() => {
+            alert('Room ID copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy room ID: ', err);
+        });
+    }
+</script>
+<script src="{% static 'chat/js/webrtc.js' %}"></script>
+{% endblock %}
